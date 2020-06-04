@@ -1,0 +1,83 @@
+Brainstorm ideas
+
+-	Divorce rate
+-	Community mobility (Google)
+-	Music preferences
+-	Students’ grades
+
+
+Introduction
+
+
+Questions
+
+-	What are the mobility trends in Canada?
+o	How do mobility trends change as time progresses?
+o	How do mobility trends differ across provinces and territories in Canada?
+o	Which provinces were the most/least active in social distancing?
+
+-	What factors drove these trends?
+o	Number of cases in Canada
+o	Number of cases around the world
+o	Temperature
+o	Precipitation
+o	Weather
+o	Number of days into social-distancing
+o	Population density
+o	Urbanness
+o	Economy
+
+-	Can we cross reference the mobility trends with Google Trends?
+
+-	Apple Mobility Trends Report?
+
+-	Do these trends reflect the number of cases increases in Canada?
+o	Social-distancing score
+
+
+Data Collection
+
+-	Google Community Mobility Reports
+-	WHO COVID-19 map data
+-	Government of Canada COVID-19 data
+-	Government of Canada Ontario Toronto City station weather data
+
+
+Data Cleaning
+
+
+Data Exploration
+
+
+Modeling
+
+
+Evaluation
+
+
+Deployment
+
+
+To-do
+
+-	What should we explore? What plots should we make?
+o	What places did people visit the most? Bar plot
+o	Cross reference most/least popular places with Google Trends. Line plot
+o	How do the mobility trends vary from day to day across different categories in Canada/provinces and territories? Line plot
+
+-	Devise an evaluation metric to measure how well did people do in social distancing – Social Distancing score
+o	Visualize social distancing in map. Grace? Geospatial data? Google map API?
+o	How does social distancing score vary from day to day across categories in Canada/provinces and territories? Line plot
+
+-	Build a statistical model to investigate what factors contribute to the social distancing score
+o	Multiple Linear Regression
+	P-value
+o	Random Forest Regression
+	Permutation Feature Importance
+
+
+Problems encountered
+
+-	How to analyze weather (i.e. temperature, precipitation, etc.) of a country?
+-	We couldn’t collect weather data for a country. Should we narrow down our model from predicting the social-distancing score of a country to the social-distancing score of a province (e.g. Ontario)?
+-	WHO COVID-19 data and Government of Canada Ontario Toronto City station weather data does not have an active link for download.

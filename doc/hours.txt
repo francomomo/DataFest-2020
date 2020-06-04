@@ -1,0 +1,38 @@
+1-4
+
+-	Explore available dataset
+-	Come up with a topic 
+-	Come up with a potential model to build
+
+5
+
+-	Data Collection
+
+6
+
+-	Push the collected data to GitHub
+-	Add merge message when pulling from master branch before pushing
+-	Ask Professor Bolton regarding mentors for DataFest
+-	Creat a To-do list (e.g. steps to take, plots to make, models to build)
+
+ 
+7-8
+
+-	First exploratory question: what places people visited the most in the provinces of Canada?
+o	Data cleaning
+	Import data
+	Filter out unnecessary rows
+	Drop columns
+	Export data
+o	Data exploration
+	Overall, parks and residential areas have the most visitors although they have different standard deviations
+	Transit and workplaces have the least visitors
+
+8-9
+
+-	Add analysis to the first exploratory question
+-	Create data frames for investigating the correlation between Google search terms “parks” and Canada provinces’ mobility for park
+o	Created line plots, scatterplots 
+o	Find the correlation between these two
+-	Writeup project docs
+
