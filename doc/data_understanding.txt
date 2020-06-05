@@ -2,3 +2,5 @@ Google Community Mobility
 
 - Google started collecting mobility data on 2020-02-15
 - The number of NaN values in region_1 equals to the number of unique date. The rows with NaN values for region_1 may be the baseline value for the day of the week.
+- region_2 contains all null values
+- Didn't include 'Prince Edward Island' when analyzing provinces because it contains too many null values
