@@ -1,0 +1,15 @@
+1. What places did people visit the most/least?
+
+To start with, we look at how frequent people visit the six categories in the mobility dataset. People visited parks and residential areas the most. However, the boxplot for parks has a large standard deviation and numerous outliers at the upper end, whereas the boxplot for residential areas have a small standard deviation. This may indicate that there were huge surges in the number of people who visited parks in some of the days. As the weather gets warmed and there is more sunlight, people may not suppress their urges of going outside and bathing in the sun. On the other hand, since most people want to prevent the virus by staying at home, residential areas are the most frequently visited place and their frequencies do not vary much. 
+
+Transit stations and workplaces are where people visited the least. This can be validated since most companies have given the "work from order" to their employees. But the large standard deviation for both of these places shows that there were still some people who had to take public transportation and went to work amidst this pandemic. It is crucial if those people were healthcare workers who contributed so much to our society and inevitable if some companies needed their employees to go to their offices. 
+
+
+2. How did mobility trends for different categories vary as time progresses?
+
+Retail and recreation, grocery and pharmacy, transit, and workplaces have the same patterns. They have sharp decreases in visits starting from mid-March and an extremely slow increases starting from mid-April. People took social distancing more seriously at those places as they started to gain awareness of the severity of the pandemic when it just started. As time progresses, people started to go out again since people needed to get groceries, ran essential errands, etc.
+
+Parks and residential have an increasing number of visits. However, parks have the most significant increasing trend. As the temperature got warmer, people started to go to park. Interestingly, Google trends also show an increase in the search term for "park". In fact, there is a 82% correlation between the number of times people searched for "park" on Google and Google mobility score for park. We can tell people really want to go outside.
+
+
+To better understand how active people take part in social distancing, we normalized the data and created a Social Distancing Score for each province for each day. 

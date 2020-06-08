@@ -1,8 +1,4 @@
-Let's go to the park? - An analysis on Social Distancing in Canada during COVID-19
+Let's go to the park! Shall we? - An analysis on how active people took part in Social Distancing in Canada during COVID-19
 
 
-Modeling
 
-1. What factors affect Ontario's Social Distancing score?
-
-- Variables: Social Distancing score, number of cases increases in Ontario, number of cases increases around the world, daily average temperature in Ontario, daily average precipitation in Ontario, number of days into social distancing
