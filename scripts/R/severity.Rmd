@@ -29,7 +29,16 @@ provinces_score <- read.csv(file = "https://raw.githubusercontent.com/francomomo
   rename(province = Province, date = Date, score = Score)
 provinces_score$date <- as.Date(provinces_score$date, format = "%Y-%m-%d")
 
+sd_score_province <- read.csv(file = "https://raw.githubusercontent.com/francomomo/datafest-2020/master/data/cleaned_data/sd_score_province.csv") %>% rename(province = Province, score = Social.Distancing.Score)
+
 canada_covid19 <- read.csv(file = "https://raw.githubusercontent.com/francomomo/datafest-2020/master/data/raw_data/covid19_canada.csv")
+
+population <- read.csv(file = "https://raw.githubusercontent.com/francomomo/datafest-2020/master/data/raw_data/population.csv") %>%
+  rename(province = Geography, population = Q1.2020) %>%
+  select(province, population)
+
+population_density <- read.csv(file = "https://raw.githubusercontent.com/francomomo/datafest-2020/master/data/raw_data/population_density.csv") %>% rename(province = X.Province.Territory, population_density = Population.Density..People.Km.Sq.) %>%
+  select(province, population_density)
 ```
 
 # Create data for total and new cases, deaths and recoveries
@@ -38,7 +47,17 @@ provinces_covid19 <- canada_covid19 %>%
   select(prname, date, numconf, numtoday, numdeaths, deathstoday, numrecover, recoveredtoday) %>%
   rename(province = prname, total_cases = numconf, new_cases = numtoday, total_deaths = numdeaths, new_deaths = deathstoday, total_recovered = numrecover, new_recovered = recoveredtoday) %>%
   filter(date != "03-06-2020")
+
+# convert to date type
 provinces_covid19$date <- as.Date(provinces_covid19$date, format = "%d-%m-%Y")
+
+# convert to numeric and set NA as zero
+provinces_covid19$total_recovered <- as.numeric(as.character(provinces_covid19$total_recovered))
+provinces_covid19[is.na(provinces_covid19)] <- 0
+
+# calculate number of active cases each day
+provinces_covid19 <- provinces_covid19 %>%
+  mutate(active_today = total_cases - total_deaths - total_recovered)
 
 c_covid19 <- provinces_covid19 %>%
   filter(province == "Canada")
@@ -73,7 +92,7 @@ yukon_covid19 <- provinces_covid19 %>%
 
 provinces_covid19 <- rbind(alberta_covid19, bc_covid19, manitoba_covid19, nb_covid19, nl_covid19, ns_covid19, ontario_covid19, quebec_covid19, saskatchewan_covid19, nt_covid19, nunavut_covid19, pei_covid19, yukon_covid19)
 provinces_covid19
-# write.csv(provinces_covid19, 'provinces_covid19.csv')
+# Upload # write.csv(provinces_covid19, 'provinces_covid19.csv')
 ```
 
 # Calculate CFR (Case Fatality Rate)
@@ -135,6 +154,74 @@ provinces_cfr_and_mobility <- merge(provinces_cfr, provinces_mobility, by = c("p
 provinces_cfr_and_mobility
 # write.csv(provinces_cfr_and_mobility, 'provinces_cfr_and_mobility.csv')
 ```
+
+# Plot of cfr over time
+```{r}
+ggplot(provinces_cfr_and_score %>% filter(province == "Ontario")) +
+  aes(x = date, y = cfr, colour = province) + 
+  geom_point()
+```
+
+# Plot of score vs cfr
+```{r}
+ggplot(provinces_cfr_and_score %>% filter(province == "Ontario")) +
+  aes(x = cfr, y = score, colour = province) + 
+  geom_point()
+```
+
+# Plot of cfr and score over time
+```{r}
+ggplot(provinces_cfr_and_score %>% filter(province == "Ontario")) +
+  aes(x = date) +
+  geom_point(aes(y = log(score), colour = "score")) +
+  geom_point(aes(y = log(cfr), colour = "cfr"))
+```
+
+# Merge active cases data with sd score data
+```{r}
+provinces_active_and_score <- merge(provinces_covid19, provinces_score, by = c("province", "date")) %>%
+  select(province, date, score, active_today)
+provinces_active_and_score
+```
+
+# Plot of score vs active cases
+```{r}
+ggplot(provinces_active_and_score %>% filter(province == "Ontario")) +
+  aes(x = active_today, y = score, colour = province) + 
+  geom_point()
+```
+
+# Plots of active cases and score over time
+```{r}
+ggplot(provinces_active_and_score %>% filter(province == "Ontario")) +
+  aes(x = date) +
+  geom_point(aes(y = score, colour = province))
+ggplot(provinces_active_and_score %>% filter(province == "Ontario")) +
+  aes(x = date) +
+  geom_point(aes(y = active_today, colour = province))
+```
+
+# Merge population data with sd score data
+```{r}
+provinces_popdensity_and_score <- merge(population_density, sd_score_province, by = c("province"))
+provinces_popdensity_and_score$X <- NULL
+provinces_pop_and_score <- merge(population, provinces_popdensity_and_score, by = c("province"))
+provinces_pop_and_score
+# write.csv(provinces_pop_and_score, 'provinces_pop_and_score.csv')
+```
+
+# Plot of score vs populaton density
+```{r}
+ggplot(provinces_popdensity_and_score) +
+  aes(x = population_density, y = score, colour = province) +
+  geom_point()
+```
+
+
+
+
+
+
 
 
 
