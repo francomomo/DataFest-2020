@@ -126,8 +126,9 @@ for(i in 1: length(provinces)){
       if (weeklycases == 0){
         temp$cfr[d] <- 0
       } else {
+        # use a 7-day rolling average
         # calculate cfr = number of deaths from disease / number of cases from disease * 100
-        temp$cfr[d] <- (weeklydeaths / weeklycases) * 100
+        temp$cfr[d] <- (mean(weeklydeaths) / mean(weeklycases)) * 100
       }
     }
   }
@@ -177,6 +178,26 @@ ggplot(provinces_cfr_and_score %>% filter(province == "Ontario")) +
   geom_point(aes(y = log(cfr), colour = "cfr"))
 ```
 
+# cfr as of June 1
+```{r}
+provinces_avgcfr <- provinces_covid19 %>%
+  filter(date == "2020-06-01") %>%
+  mutate(cfr = total_deaths / total_cases) %>%
+  select(province, cfr)
+provinces_avgcfr
+
+provinces_avgcfr_and_score <- merge(provinces_avgcfr, sd_score_province, by = c("province"))
+provinces_avgcfr_and_score$X <- NULL
+provinces_avgcfr_and_score
+```
+
+# Plot of average score vs cfr
+```{r}
+ggplot(provinces_avgcfr_and_score) +
+  aes(x = cfr, y = score, colour = province) +
+  geom_point()
+```
+
 # Merge active cases data with sd score data
 ```{r}
 provinces_active_and_score <- merge(provinces_covid19, provinces_score, by = c("province", "date")) %>%
@@ -210,7 +231,7 @@ provinces_pop_and_score
 # write.csv(provinces_pop_and_score, 'provinces_pop_and_score.csv')
 ```
 
-# Plot of score vs populaton density
+# Plot of score vs population density
 ```{r}
 ggplot(provinces_popdensity_and_score) +
   aes(x = population_density, y = score, colour = province) +
